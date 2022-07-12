@@ -37,7 +37,7 @@ xlength=length(x);
 por1=zeros(xlength,1);
 
 for j=1:1:xlength; 
-        por1(j)=0.81501 - 0.086889*log10(j*dx); %Fit R value = 0.963 STA.3
+        por1(j)=0.81501 - 0.086889*log10(j*dx); %Fit porosity profile at location of interests. This fit is from North Pacific
 end
  
 %K array: start by defining Kd in the upper few cm
