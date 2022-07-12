@@ -1,4 +1,5 @@
-%This is a numerical model for 227Ac in deep-sea sediments. 
+%This is a numerical model for 227Ac in deep-sea sediments (This code is also valid 
+%for the behavior of other radioisotopes in marine sediments as well). 
 %The only transport mechanism is diffusion, and advection has been ignored
 %Equation that will be used numerical in this model -->
 %dC/dt=(Ds+K*Db)*d2C/dx2 - lambda*(1+K)*C + P 
