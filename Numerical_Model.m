@@ -84,7 +84,7 @@ dC(1)=dt*[(Ds(1)+K1(1)*Db)*por1(1)*((CW - C(1))/(dx^2/2)) + (Ds(1)+K1(1)*Db)*por
 %because the distance from middle of box 1 to overlying water is 1/2 of a box dimension.
     
 for i=2:1:N;%for loop for dC 
-dC(i)=dt*[((Ds(i)+K1(i)*Db)*por1(i)*(C(i-1) - 2*C(i) + C(i+1))/(dx^2)) - lambdaAc*(1+K1(i))*C(i) + ((F*rho*(1-por1(i))*Apaa)/(por1(i)))];   
+    dC(i)=dt*[((Ds(i)+K1(i)*Db)*por1(i)*(C(i-1) - 2*C(i) + C(i+1))/(dx^2)) - lambdaAc*(1+K1(i))*C(i) + ((F*rho*(1-por1(i))*Apaa)/(por1(i)))];   
 end
  
 for i=1:1:N;%increment boxes with dc   
@@ -141,7 +141,7 @@ sumActmass1=sum(Actmass);%total vector sum, all 10cm
 %%take model values and average for every cm, including the mass, final units are in dpm/g
 
 for i=1:1:length(summass); 
-      Cmodel(i)=Kd*Actmass(i)/summass(i)+ (1-F)*Apa;
+    Cmodel(i)=Kd*Actmass(i)/summass(i)+ (1-F)*Apa;
 end
 
 %compare measured and calculated 227Ac
