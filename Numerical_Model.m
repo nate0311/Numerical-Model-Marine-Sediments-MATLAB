@@ -37,7 +37,7 @@ xlength=length(x);
 por1=zeros(xlength,1);
 
 for j=1:1:xlength; 
-        por1(j)=0.81501 - 0.086889*log10(j*dx); %Fit porosity profile at location of interests. This fit is from North Pacific
+    por1(j)=0.81501 - 0.086889*log10(j*dx); %Fit porosity profile at location of interests. This fit is from North Pacific
 end
  
 %K array: start by defining Kd in the upper few cm
@@ -46,7 +46,7 @@ end
 K1=zeros(xlength,1);
 
 for i=1:1:N+1; 
-      K1(i)=(Kd*rho*(1-por1(i)))/(por1(i));
+    K1(i)=(Kd*rho*(1-por1(i)))/(por1(i));
 end
  
 %create Ds from Dm
@@ -73,26 +73,25 @@ dC=zeros(xlength,1);
 %for loop
 for timestep=1:2500000;
   
-CW00=3;%INITIAL CONCENTRATION AT SWI (UNITS OF dpm/m3)
-%concentration in water above SWI: 3.0 dpm/m3 = 0.000003 dpm/cc = 49.6 atoms/cc
+    CW00=3;%INITIAL CONCENTRATION AT SWI (UNITS OF dpm/m3); concentration in water above SWI: 3.0 dpm/m3 = 0.000003 dpm/cc = 49.6 atoms/cc
  
-CW0=CW00/1000000;%convert m3 to cc
-CW=CW0/lambdaAc1; %convert dpm to atoms   %initial concentration,
+    CW0=CW00/1000000; %convert m3 to cc
+    CW=CW0/lambdaAc1; %convert dpm to atoms   %initial concentration,
  
-%first box dC
-dC(1)=dt*[(Ds(1)+K1(1)*Db)*por1(1)*((CW - C(1))/(dx^2/2)) + (Ds(1)+K1(1)*Db)*por1(1)*((C(2)-C(1))/(dx^2))- lambdaAc*(1+K1(1))*C(1) + ((F*rho*(1-por1(1))*Apaa)/(por1(1)))];
-%because the distance from middle of box 1 to overlying water is 1/2 of a box dimension.
+    %first box dC
+    dC(1)=dt*[(Ds(1)+K1(1)*Db)*por1(1)*((CW - C(1))/(dx^2/2)) + (Ds(1)+K1(1)*Db)*por1(1)*((C(2)-C(1))/(dx^2))- lambdaAc*(1+K1(1))*C(1) + ((F*rho*(1-por1(1))*Apaa)/(por1(1)))];
+    %because the distance from middle of box 1 to overlying water is 1/2 of a box dimension.
     
-for i=2:1:N;%for loop for dC 
-    dC(i)=dt*[((Ds(i)+K1(i)*Db)*por1(i)*(C(i-1) - 2*C(i) + C(i+1))/(dx^2)) - lambdaAc*(1+K1(i))*C(i) + ((F*rho*(1-por1(i))*Apaa)/(por1(i)))];   
-end
+    for i=2:1:N;%for loop for dC 
+        dC(i)=dt*[((Ds(i)+K1(i)*Db)*por1(i)*(C(i-1) - 2*C(i) + C(i+1))/(dx^2)) - lambdaAc*(1+K1(i))*C(i) + ((F*rho*(1-por1(i))*Apaa)/(por1(i)))];   
+    end
  
-for i=1:1:N;%increment boxes with dc   
-    C(i) = C(i) + dC(i);    
-end
+    for i=1:1:N;%increment boxes with dc   
+        C(i) = C(i) + dC(i);    
+    end
  
-sumtime=sumtime+dt;
-sumdays=sumtime*365.25;
+    sumtime=sumtime+dt;
+    sumdays=sumtime*365.25;
 end
  
 sumetime=sumtime+dt;
